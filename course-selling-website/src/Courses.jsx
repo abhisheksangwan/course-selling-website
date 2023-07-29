@@ -1,25 +1,28 @@
-import { Card, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types"; // Import PropTypes for prop validation
+import { useNavigate } from "react-router-dom";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    function callback2(data) {
-      setCourses(data.courses);
-    }
-    function callback1(res) {
-      res.json().then(callback2);
-    }
     fetch("http://localhost:3000/admin/courses/", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    }).then(callback1);
+    }).then((res) => {
+      return res.json();
+    })
+      .then((data) => {
+        setCourses(data.courses);
+    })
   }, []);
 
+  if (!courses.length) {
+    return <div>loading...</div>
+  }
   return (
     <div
       style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
@@ -31,14 +34,17 @@ function Courses() {
   );
 }
 
-export function Course(props) {
+export function Course({course}) {
   // Add prop validation using PropTypes
+  const navigate = useNavigate();
+
   Course.propTypes = {
     course: PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
+      price:PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -51,16 +57,33 @@ export function Course(props) {
       }}
     >
       <Typography textAlign={"center"} variant="h5">
-        {props.course.title}
+        {course.title}
       </Typography>
       <Typography textAlign={"center"} variant="subtitle1">
-        {props.course.description}
+        {course.description}
       </Typography>
-      <img
-        src={props.course.image}
-        style={{ width: 300 }}
-        alt={props.course.title}
-      />
+      <img src={course.image} style={{ width: 300 }} alt={course.title} />
+      <Typography textAlign={"center"} variant="subtitle1">
+        Price: {course.price}
+      </Typography>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 10,
+          marginBottom: 10,
+        }}
+      >
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => {
+            navigate("/course/" + course.id);
+          }}
+        >
+          Edit
+        </Button>
+      </div>
     </Card>
   );
 }

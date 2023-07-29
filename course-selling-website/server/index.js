@@ -139,7 +139,7 @@ app.get("/admin/courses", authenticateJWTAdmin, (req, res) => {
 // User routes
 app.post("/users/signup", (req, res) => {
   // logic to sign up user
-const { username, password } = req.body;
+  const { username, password } = req.body;
   const existingUser = USERS.find(
     (a) => a.username === username && a.password === password
   );

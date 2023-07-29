@@ -39,9 +39,6 @@ function Appbar() {
             <Typography
               variant={"h6"}
               style={{ marginLeft: "10px" }}
-              onClick={() => {
-                window.location = "/login";
-              }}
             >
               Coursera
             </Typography>
