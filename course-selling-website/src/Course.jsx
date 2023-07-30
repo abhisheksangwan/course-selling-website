@@ -26,11 +26,11 @@ function Course() {
   return (
     <div>
       <GrayTopper title={course.title} />
-      <Grid  style={{display:"flex", justifyContent:"center", flexWrap:"wrap", alignItems:"center", height:"100vh" }}>
+      <Grid  container>
         <Grid item lg={8} md={12} sm={12}>
           <UpdateCard course={course} setCourse={setCourse} />
         </Grid>
-        <Grid item lg={8} md={12} sm={12}>
+        <Grid item lg={4} md={12} sm={12}>
           <CourseCard course={course} />
         </Grid>
       </Grid>
@@ -46,7 +46,7 @@ function GrayTopper({ title }) {
         top: 0,
         width: "100vw",
         zIndex: 0,
-        marginBottom: -250,
+        marginBottom: -110,
       }}
     >
       <div
@@ -84,7 +84,7 @@ function CourseCard({ course }) {
     <div
       style={{
         display: "flex",
-        marginTop: 40,
+        marginTop: 35,
         justifyContent: "center",
         width: "100%",
       }}
