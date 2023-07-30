@@ -131,6 +131,14 @@ app.put("/admin/courses/:courseId", authenticateJWTAdmin, (req, res) => {
     res.status(411).send({ message: "Course not found" });
   }
 });
+app.get("/admin/courses/:courseId", authenticateJWTAdmin, async (req, res) => {
+  // logic to find a course
+  const courseId = parseInt(req.params.courseId);
+  const course = await COURSES.find((c) => c.id === courseId);
+  if (course) {
+    res.json({ course });
+  } 
+});
 app.get("/admin/courses", authenticateJWTAdmin, (req, res) => {
   // logic to get all courses
   res.json({ courses: COURSES });

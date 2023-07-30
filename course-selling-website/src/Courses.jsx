@@ -25,7 +25,7 @@ function Courses() {
   }
   return (
     <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", background:"#EEEEEE"}}
     >
       {courses.map((course) => {
         return <Course key={course.id} course={course} />; // Add "key" prop
@@ -53,7 +53,7 @@ export function Course({course}) {
       style={{
         margin: 10,
         width: 300,
-        minHeight: 200,
+        Height: 200,
       }}
     >
       <Typography textAlign={"center"} variant="h5">
