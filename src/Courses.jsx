@@ -40,11 +40,11 @@ export function Course({course}) {
 
   Course.propTypes = {
     course: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
-      price:PropTypes.string.isRequired,
+      price: PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -78,7 +78,7 @@ export function Course({course}) {
           variant="contained"
           size="large"
           onClick={() => {
-            navigate("/course/" + course.id);
+            navigate("/course/" + course._id);
           }}
         >
           Edit

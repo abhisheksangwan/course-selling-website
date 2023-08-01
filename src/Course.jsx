@@ -10,7 +10,7 @@ function Course() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/admin/courses/" + courseId, {
+      .get("http://localhost:3000/admin/course/" + courseId, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
