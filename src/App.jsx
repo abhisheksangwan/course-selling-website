@@ -1,4 +1,4 @@
- import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Signup from "./Signup";
 import Login from "./Signin";
@@ -7,17 +7,17 @@ import Addcourse from "./AddCourse";
 import Courses from "./Courses";
 import Course from "./Course";
 import Profile from "./Profile";
-import {
-  RecoilRoot,
-} from 'recoil';
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <div style={{
-      width: "100vw",
-      height: "100vh",
-      backgroundColor:"#eeeeee"
-    }}>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#eeeeee",
+      }}
+    >
       <Router>
         <Appbar />
         <RecoilRoot>

@@ -1,135 +1,118 @@
-import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Appbar() {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
+    function callback2(data) {
+      if (data.username) {
+        setUserEmail(data.username);
+      }
+    }
+    function callback1(res) {
+      res.json().then(callback2);
+    }
+    console.log("token - " + localStorage.getItem("token"));
     fetch("http://localhost:3000/admin/me", {
+      method: "GET",
       headers: {
-        "Content-type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.username) {
-          setUserEmail(data.username);
-        }
-      });
+    }).then(callback1);
   }, []);
 
   if (userEmail) {
     return (
-      <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "10px",
-            backgroundColor: "grey",
-          }}
-        >
-          <div>
-            <Typography
-              variant={"h6"}
-              style={{ marginLeft: "10px" }}
-            >
-              Coursera
-            </Typography>
-          </div>
-          <div
-            style={{
-              marginRight: "10px",
-              display: "flex",
-            }}
-          >
-            <Button
-              variant={"contained"}
-              onClick={() => {
-                window.location = "/userprofile";
-              }}
-              style={{ marginRight: "15px" }}
-            >
-              {userEmail}
-            </Button>
-            <Button
-              variant={"contained"}
-              onClick={() => {
-                window.location = "/courses";
-              }}
-              style={{ marginRight: "15px" }}
-            >
-              Courses
-            </Button>
-            <Button
-              variant={"contained"}
-              onClick={() => {
-                window.location = "/addcourse";
-              }}
-              style={{ marginRight: "15px" }}
-            >
-              Add Courses
-            </Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: 4,
+          zIndex: 1,
+        }}
+      >
+        <div style={{ marginLeft: 10 }}>
+          <Typography variant={"h6"}>Coursera</Typography>
+        </div>
+
+        <div style={{ display: "flex" }}>
+          <div style={{ marginRight: 10, display: "flex" }}>
+            <div style={{ marginRight: 10 }}>
+              <Button
+                onClick={() => {
+                  navigate("/addcourse");
+                }}
+              >
+                Add course
+              </Button>
+            </div>
+
+            <div style={{ marginRight: 10 }}>
+              <Button
+                onClick={() => {
+                  navigate("/courses");
+                }}
+              >
+                Courses
+              </Button>
+            </div>
+
             <Button
               variant={"contained"}
               onClick={() => {
                 localStorage.setItem("token", null);
-                window.location = "/signup";
+                window.location = "/";
               }}
             >
-              Log out
+              Logout
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: 4,
+          zIndex: 1,
+        }}
+      >
+        <div style={{ marginLeft: 10 }}>
+          <Typography variant={"h6"}>Coursera</Typography>
+        </div>
+
+        <div style={{ display: "flex" }}>
+          <div style={{ marginRight: 10 }}>
+            <Button
+              variant={"contained"}
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              Signup
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant={"contained"}
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Signin
             </Button>
           </div>
         </div>
       </div>
     );
   }
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "10px",
-        backgroundColor: "grey",
-      }}
-    >
-      <div>
-        <Typography variant={"h6"} style={{ marginLeft: "10px" }}>
-          Coursera
-        </Typography>
-      </div>
-      <div
-        style={{
-          marginRight: "10px",
-          display: "flex",
-        }}
-      >
-        <Button
-          variant={"contained"}
-          onClick={() => {
-            navigate("/signup");
-          }}
-          style={{ marginRight: "15px" }}
-        >
-          Sign up
-        </Button>
-        <Button
-          variant={"contained"}
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Sign in
-        </Button>
-      </div>
-    </div>
-  );
 }
 
 export default Appbar;
