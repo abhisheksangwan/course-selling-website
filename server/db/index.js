@@ -27,4 +27,8 @@ const Course = mongoose.model('Course', courseSchema);
     User,
     Admin,
     Course
-  }
+}
+  
+mongoose.connect(
+  "mongodb+srv://abhisheksangwan:y9Vu3xPCSobeKS21@course-website.mi5hbsi.mongodb.net/course"
+);

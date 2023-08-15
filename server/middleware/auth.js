@@ -17,4 +17,7 @@ const authenticateJwt = (req, res, next) => {
   }
 };
 
-export { authenticateJwt, SECRET };
+export {
+  authenticateJwt,
+  SECRET
+};
