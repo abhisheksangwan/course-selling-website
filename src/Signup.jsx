@@ -3,10 +3,24 @@ import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleSignup = async () => {
+    const response = await axios.post("http://localhost:3000/admin/signup", {
+      username: email,
+      password: password,
+    });
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.token);
+      window.location = "/";
+    } else {
+      console.log(response.data);
+    }
+  };
 
   return (
     <div
@@ -40,7 +54,6 @@ function Signup() {
         <TextField
           fullWidth={true}
           onChange={(e) => {
-            console.log(e);
             setEmail(e.target.value);
           }}
           label="Email"
@@ -64,29 +77,8 @@ function Signup() {
             marginTop: "15px",
           }}
         >
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={() => {
-              fetch("http://localhost:3000/admin/signup", {
-                method: "POST",
-                body: JSON.stringify({
-                  username: email,
-                  password: password,
-                }),
-                headers: {
-                  "Content-type": "application/json",
-                },
-              })
-                .then((res) => {
-                  return res.json();
-                })
-                .then((data) => {
-                  localStorage.setItem("token", data.token);
-                });
-            }}
-          >
-            Sign up
+          <Button size={"large"} variant="contained" onClick={handleSignup}>
+            Signup
           </Button>
           <Button
             type="submit"
