@@ -1,9 +1,9 @@
-import mongoose                from"mongoose";
-import express                 from"express";
+import mongoose from"mongoose";
+import express from"express";
 import { Course, Admin } from"../db/index.js";
-import jwt                     from"jsonwebtoken";
-import { SECRET }              from"../middleware/auth.js";
-import { authenticateJwt }     from"../middleware/auth.js";
+import jwt from"jsonwebtoken";
+import { SECRET } from"../middleware/auth.js";
+import { authenticateJwt } from"../middleware/auth.js";
 
 const router = express.Router();
 
