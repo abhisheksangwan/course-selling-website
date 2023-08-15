@@ -1,4 +1,3 @@
-import mongoose from"mongoose";
 import express from"express";
 import { Course, Admin } from"../db/index.js";
 import jwt from"jsonwebtoken";
