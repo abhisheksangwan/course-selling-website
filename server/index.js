@@ -19,4 +19,4 @@ mongoose.connect(
   "mongodb+srv://abhisheksangwan:y9Vu3xPCSobeKS21@course-website.mi5hbsi.mongodb.net/course"
 );
 
-app.listen(80, () => console.log("Server running on port 3000"));
+app.listen(3000, () => console.log("Server running on port 3000"));
